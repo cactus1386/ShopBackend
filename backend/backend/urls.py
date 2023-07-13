@@ -16,11 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app.views import TshirtListAPIView, PantListAPIView
-
+from app.views import ProductListAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/tshirt/", TshirtListAPIView.as_view(), name="tshirt-list"),
-    path("api/pants/", PantListAPIView.as_view(), name="pants-list"),
+    path("api/products/", ProductListAPIView.as_view(), name="product-list"),
 ]
