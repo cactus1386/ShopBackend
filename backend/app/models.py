@@ -3,7 +3,6 @@ from django.db import models
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    typeid = models.IntegerField(default=1)
     price = models.IntegerField(max_length=25)
     discount = models.IntegerField(max_length=10)
     pic = models.CharField(max_length=255, null=True, blank=True)
@@ -17,24 +16,40 @@ class Product(models.Model):
 
 
 class Images(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images_set')
     image = models.CharField(max_length=255, blank=True, null=True, default="")
 
     def __str__(self):
         return self.image
 
-# class color(models.Model):
-#     pid = models.IntegerField()
-#     color = models.CharField(max_length=255)
 
+class color(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="colors_set")
+    color = models.CharField(max_length=255, blank=True, null=True, default="")
 
-# class sizenum(models.Model):
-#     pid = models.IntegerField()
-#     sizenum = models.IntegerField()
-
-
-# class sizetype(models.Model):
-#     pid = models.IntegerField()
-#     sizetype = models.CharField(max_length=10)
+    def __str__(self):
+        return self.color
     
-    
+
+class size(models.Model):
+    CHOICES = (
+        ("S", "S"),
+        ("M", "M"),
+        ("L", 'L'),
+        ('XL', 'XL'),
+        ('XXL', 'XXL'),
+        ('3XL', "3XL")
+        )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="size_set")
+    size = models.CharField(max_length=255, blank=True, null=True, default="", choices=CHOICES)
+
+    def __str__(self):
+        return self.size
+
+
+class Sliders(models.Model):
+    link = models.CharField(max_length=10000)
+    image = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return self.image
