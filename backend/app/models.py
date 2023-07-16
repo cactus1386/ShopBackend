@@ -1,5 +1,6 @@
 # models.py
 from django.db import models
+import datetime
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -9,11 +10,14 @@ class Product(models.Model):
     count = models.IntegerField(default=10)
     material = models.CharField(max_length=255)
     brand = models.CharField(max_length=500)
-    description = models.TextField(max_length=255)
+    description = models.TextField(max_length=100000)
+    created_date = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
+    def snnipets(self):
+        return self.description[:100] + "..."
 
 class Images(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images_set')
@@ -53,3 +57,10 @@ class Sliders(models.Model):
 
     def __str__(self):
         return self.image
+    
+class banner(models.Model):
+    link = models.CharField(max_length=10000)
+    image = models.CharField(max_length=10000)
+
+    def __str__(self):
+        return f"banner {self.id}"

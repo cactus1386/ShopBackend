@@ -1,6 +1,7 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Product, Images, color, size
+from .models import Product, Images, color, size, Sliders, banner
+
 
 class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +21,6 @@ class SizeSerializer(serializers.ModelSerializer):
         fields = ('id', 'size')
 
 
-
 class ProductSerializer(serializers.ModelSerializer):
     images = ImagesSerializer(many=True, read_only=True, source='images_set')
     colors = ColorSerializer(many=True, read_only=True, source='colors_set')
@@ -28,6 +28,17 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price', 'discount', 'pic', 'count', 'material', 'brand', 'description', 'images', 'colors', 'sizes')
+        fields = ('id', 'name', 'price', 'discount', 'pic', 'count',
+                  'material', 'brand', 'description', 'images', 'colors', 'sizes')
 
-        
+
+class SliderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sliders
+        fields = "__all__"
+
+
+class BannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = banner
+        fields = "__all__"

@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app.views import ProductListAPIView
+from app.views import ProductListAPIView, SliderListAPIView, BannerListAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/products/", ProductListAPIView.as_view(), name="product-list"),
+    path('api/slider/', SliderListAPIView.as_view(), name="slider-list"),
+    path('api/banner/', BannerListAPIView.as_view(), name="banner-list")
 ]
